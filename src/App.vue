@@ -1,15 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1>Auntie Nona's Pizzeria</h1>
+  <Menu msg="Menu" :menu="this.dataStore" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Menu from './components/Menu.vue'
+
+const axios = require('axios').default;
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Menu,
+  },
+  data () {
+    return {
+      dataStore: [],
+    }
+  },
+  mounted () {
+    axios.get('https://89ggic0zqd.execute-api.us-west-1.amazonaws.com/latest/pizzas')
+      .then(res => {
+        this.dataStore = res.data
+      })
   }
 }
 </script>

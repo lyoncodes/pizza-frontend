@@ -1,6 +1,6 @@
 <template>
 
-<div @click="addPizza" class="pizza">
+<div class="pizza">
 
   <h3>{{ pizza.name }}</h3>
   <span v-for="(ingredient, idx) in pizza.ingredients" :key="idx">
@@ -16,11 +16,6 @@ export default {
     pizza: {
       type: Object,
       required: true
-    }
-  },
-  methods: {
-    addPizza () {
-      this.$emit('addToOrder', { pizza: this.pizza })
     }
   }
 }

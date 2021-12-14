@@ -8,10 +8,11 @@
   <div v-for="order in cart" :key="order.id">
     <div>{{ order.name }}</div>
   </div>
-  <button v-if="cart.length"> Checkout </button>
+  <button v-if="cart.length" @click="checkout"> Checkout </button>
 </div>
 </template>
 <script>
+import api from '../../services/api.js'
 export default {
   name: 'Cart',
   props: {
@@ -23,6 +24,12 @@ export default {
   data () {
     return {
       msg: 'Your Order'
+    }
+  },
+  methods: {
+    checkout(){
+      api.createOrder(this.cart[0], 'test')
+      console.log(this.cart)
     }
   }
 }

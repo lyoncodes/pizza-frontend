@@ -1,35 +1,31 @@
 <template>
-
 <div>
-  <h1>{{ msg }}</h1>
-  <div class="menu">
-    <div v-for="pizza in menu" :key="pizza.id" class="menu-item">
-      <Pizza :pizza="pizza" @addToOrder="addToOrderList($event.pizza)"/>
-    </div>
-  </div>
+  <Menu :menu="menu" @addToOrder="addToOrderList($event.pizza)"/>
   <Cart :cart="this.orderList" class="cart"/>
 </div>
 </template>
 <script>
-import Pizza from './Pizza.vue';
-import Cart from './Cart.vue';
+import Cart from './components/Cart.vue';
+import Menu from './Menu.vue';
+const axios = require('axios').default;
+
 export default {
-  name: 'Menu',
+  name: 'NewOrder',
   components: {
-    Pizza,
-    Cart
-  },
-  props: {
-    msg: String,
-    menu: {
-      type: Array,
-      required: true
-    }
+    Cart,
+    Menu
   },
   data () {
     return {
-      orderList: []
+      orderList: [],
+      menu: []
     }
+  },
+  async created () {
+    await axios.get('https://89ggic0zqd.execute-api.us-west-1.amazonaws.com/latest/pizzas')
+      .then(res => {
+        this.menu = res.data
+      })
   },
   methods: {
     addToOrderList (pizza) {

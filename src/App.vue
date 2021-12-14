@@ -1,31 +1,11 @@
 <template>
-  <h1>Auntie Nona's Pizzeria</h1>
-  <Menu msg="Menu" :menu="this.dataStore" />
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link> |
+    <router-link to="/orders">Orders</router-link>
+  </div>
+  <router-view/>
 </template>
-
-<script>
-import Menu from './components/Menu.vue'
-
-const axios = require('axios').default;
-
-export default {
-  name: 'App',
-  components: {
-    Menu,
-  },
-  data () {
-    return {
-      dataStore: [],
-    }
-  },
-  mounted () {
-    axios.get('https://89ggic0zqd.execute-api.us-west-1.amazonaws.com/latest/pizzas')
-      .then(res => {
-        this.dataStore = res.data
-      })
-  }
-}
-</script>
 
 <style>
 #app {
@@ -34,6 +14,50 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
+}
+
+.menu{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.menu-item{
+  border: 1px solid pink;
+  margin: 10px;
+  padding: 10px;
+  width: 30%;
+}
+
+.menu-item:hover{
+  background-color: rgba(253, 246, 236, 0.795);
+  cursor: pointer;
+}
+
+@media (max-width: 1300px){
+  .menu{
+    justify-content: center;
+  }
+}
+@media (max-width: 1000px){
+  .menu{
+    flex-direction: column;
+  }
+  .menu-item{
+    width: 90%;
+  }
+}
+
 </style>

@@ -10,6 +10,15 @@ async function getOrders() {
   return res.data
 }
 
+async function getPizza(id) {
+  const res = await axios.get(`${config.apiUrl}/pizzas/${id}`, {
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
+  return res.data.name
+}
+
 async function createOrder(pizza, address){
   await axios.post(`${config.apiUrl}/orders`, {
     headers: {
@@ -28,4 +37,4 @@ async function deleteOrder(orderId){
   await axios.delete(`${config.apiUrl}/orders/${orderId}`)
 }
 
-export default {createOrder, getOrders, updateOrder, deleteOrder};
+export default {createOrder, getOrders, getPizza, updateOrder, deleteOrder};

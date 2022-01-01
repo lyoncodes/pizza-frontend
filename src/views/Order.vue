@@ -1,7 +1,7 @@
 <template>
 <div>
   <Menu :menu="menu" @addToOrder="addToOrderList($event.pizza)"/>
-  <Cart :cart="this.orderList" class="cart"/>
+  <Cart :cart="this.orderList"/>
 </div>
 </template>
 <script>
@@ -29,46 +29,20 @@ export default {
   },
   methods: {
     addToOrderList (pizza) {
-      const newPizza = {
-        id: pizza.id,
-        name: pizza.name
+      const ref = this.orderList.find(el => el.id === pizza.id)
+      if (!ref) {
+        const newPizza = {
+          id: pizza.id,
+          name: pizza.name,
+          quanitity: 1
+        }
+        this.orderList.push(newPizza)
+      } else {
+        ref.quanitity++
       }
-      this.orderList.push(newPizza);
     }
   }
 }
 </script>
 <style scoped>
-.cart{
-  text-align: left;
-  margin-left: 20px;
-}
-.menu{
-  display: flex;
-  flex-wrap: wrap;
-}
-.menu-item{
-  border: 1px solid pink;
-  margin: 10px;
-  padding: 10px;
-  width: 30%;
-}
-.menu-item:hover{
-  background-color: rgba(253, 246, 236, 0.795);
-  cursor: pointer;
-}
-
-@media (max-width: 1300px){
-  .menu{
-    justify-content: center;
-  }
-}
-@media (max-width: 1000px){
-  .menu{
-    flex-direction: column;
-  }
-  .menu-item{
-    width: 90%;
-  }
-}
 </style>

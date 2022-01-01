@@ -1,7 +1,10 @@
 <template>
 <div class="menu">
-  <div v-for="pizza in menu" :key="pizza.id" @click="addPizza(pizza)" class="menu-item">
-    <Pizza :pizza="pizza"/>
+  <div v-for="pizza in menu" :key="pizza.id" class="card-item col-sm">
+    <button class="cx-cta-green card-btn" @click="addPizza(pizza)">Add</button >
+    <div class="card-item-content">
+      <Pizza :pizza="pizza"/>
+    </div>
   </div>
 </div>
 </template>

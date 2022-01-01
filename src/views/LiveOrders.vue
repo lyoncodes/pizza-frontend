@@ -1,10 +1,15 @@
 <template>
 <div class="menu">
-  <div v-for="order in orders" :key="order.id" class="menu-item">
-    <p>{{order.orderStatus}}</p>
-    <p>{{order.orderId}}</p>
-    <p>{{order.pizza}}</p>
-    <button @click="deleteThis(order.orderId)">Delete Order</button>
+  <div v-for="order in orders" :key="order.id" class="card-item col-sm">
+    <button class="cx-cta card-btn" @click="deleteThis(order.orderId)">Delete</button >
+    <button class="cx-cta card-btn" @click="deleteThis(order.orderId)">Done</button >
+    <div class="card-item-content">
+      <h3>{{order.name}}</h3>
+      <div class="status-bar"></div>
+      <h3>{{order.orderStatus}}</h3>
+      <p class="caption">{{order.orderId}}</p>
+    </div>
+    <!-- <p>{{order.address}}</p> -->
   </div>
 </div>
 </template>
@@ -20,6 +25,9 @@ export default {
   async created () {
     const orders = await api.getOrders();
     this.orders = orders;
+    this.orders.forEach(async order => {
+      order.name = await api.getPizza(order.pizza)
+    })
   },
   methods: {
     deleteThis(id){
@@ -29,11 +37,4 @@ export default {
 }
 </script>
 <style scoped>
-h3{
-  display: inline;
-}
-.counter{
-  margin-left: 15px;
-  font-weight: 700;
-}
 </style>

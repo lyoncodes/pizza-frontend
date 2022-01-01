@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Register from '../views/Register.vue'
 import Order from '../views/Order.vue'
 import LiveOrders from '../views/LiveOrders.vue'
 
@@ -8,6 +9,12 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    props: true
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
     props: true
   },
   {
